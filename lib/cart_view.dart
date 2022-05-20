@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 import 'package:school_meals/home_view.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'items_controller.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'orders_view.dart';
 
 class CartView extends StatefulWidget {
   const CartView({Key? key}) : super(key: key);
@@ -13,6 +16,8 @@ class CartView extends StatefulWidget {
 }
 
 class _CartViewState extends State<CartView> {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+
   @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
@@ -41,7 +46,7 @@ class _CartViewState extends State<CartView> {
               child: Text(
                 "افراغ السلة",
                 style: GoogleFonts.cairo(
-                    fontSize: 23,
+                    fontSize: 18,
                     fontWeight: FontWeight.w500,
                     color: Colors.red),
               ),
@@ -102,6 +107,26 @@ class _CartViewState extends State<CartView> {
                 ),
                 onTap: () {
                   Get.back();
+                },
+              ),
+              const Divider(
+                color: Colors.black,
+              ),
+              ListTile(
+                leading: const FaIcon(
+                  FontAwesomeIcons.shop,
+                  color: Colors.brown,
+                ),
+                title: Text(
+                  "Orders",
+                  style: GoogleFonts.cairo(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black,
+                  ),
+                ),
+                onTap: () {
+                  Get.to(const OrdersView());
                 },
               ),
             ],
@@ -211,6 +236,41 @@ class _CartViewState extends State<CartView> {
                   ),
                 ),
               ],
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          TextButton(
+            onPressed: () {
+              db
+                  .collection('users')
+                  .add({
+                    'cofe': cart.cofeCount.toString(),
+                    'croissant': cart.croissantCount.toString(),
+                    'water': cart.waterCount.toString(),
+                    'juice': cart.juiceCount.toString(),
+                  })
+                  .then(
+                    (DocumentReference doc) =>
+                        ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('order sent succesfully'),
+                      ),
+                    ),
+                  )
+                  .then((value) {
+                    Get.delete<CartController>()
+                        .then((value) => Get.to(const HomeView()));
+                  });
+            },
+            child: Text(
+              'Order',
+              style: GoogleFonts.tajawal(
+                fontSize: 20,
+                color: Colors.brown,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ],

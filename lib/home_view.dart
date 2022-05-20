@@ -3,8 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 import 'package:school_meals/cart_view.dart';
 import 'package:badges/badges.dart';
+import 'package:school_meals/orders_view.dart';
 import 'components/item_widget.dart';
 import 'items_controller.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -82,6 +84,26 @@ class _HomeViewState extends State<HomeView> {
                   ),
                   onTap: () {
                     Get.to(const CartView());
+                  },
+                ),
+                const Divider(
+                  color: Colors.black,
+                ),
+                ListTile(
+                  leading: const FaIcon(
+                    FontAwesomeIcons.shop,
+                    color: Colors.brown,
+                  ),
+                  title: Text(
+                    "Orders",
+                    style: GoogleFonts.cairo(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black,
+                    ),
+                  ),
+                  onTap: () {
+                    Get.to(const OrdersView());
                   },
                 ),
               ],
