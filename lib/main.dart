@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:school_meals/home_view.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:school_meals/views/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,14 +15,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        title: 'Flutter Demo',
+        title: 'DUS COFFEE',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.grey,
+          //primarySwatch: Colors.grey,
+          primaryColor: const Color.fromRGBO(19, 61, 123, 1),
         ),
         initialRoute: "/",
         getPages: [
-          GetPage(name: "/", page: () => const HomeView()),
+          GetPage(name: "/", page: () => const SplashScreen()),
         ]);
   }
 }

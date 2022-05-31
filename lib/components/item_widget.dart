@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-import '../items_controller.dart';
+import '../controllers/items_controller.dart';
 
 class ItemWidget extends StatefulWidget {
   const ItemWidget({
@@ -79,8 +79,8 @@ class _ItemWidgetState extends State<ItemWidget> {
                 child: InkWell(
                   onTap: () {
                     switch (widget.name) {
-                      case "قهوة":
-                        cart.cofeCount++;
+                      case "كوكيز":
+                        cart.cookiesCount++;
                         setState(() {
                           show = true;
                         });
@@ -91,18 +91,20 @@ class _ItemWidgetState extends State<ItemWidget> {
                           show = true;
                         });
                         break;
+                      case "قهوة":
+                        cart.cofeCount++;
+                        setState(() {
+                          show = true;
+                        });
+                        break;
+
                       case "ماء":
                         cart.waterCount++;
                         setState(() {
                           show = true;
                         });
                         break;
-                      case "عصير":
-                        cart.juiceCount++;
-                        setState(() {
-                          show = true;
-                        });
-                        break;
+
                       default:
                     }
                   },
@@ -134,14 +136,13 @@ class _ItemWidgetState extends State<ItemWidget> {
                   child: InkWell(
                     onTap: () {
                       switch (widget.name) {
-                        case "قهوة":
-                          cart.cofeCount--;
-                          if (cart.cofeCount.value == 0) {
+                        case "كوكيز":
+                          cart.cookiesCount--;
+                          if (cart.cookiesCount.value == 0) {
                             setState(() {
                               show = false;
                             });
                           }
-
                           break;
                         case "كروسان":
                           cart.croissantCount--;
@@ -151,6 +152,15 @@ class _ItemWidgetState extends State<ItemWidget> {
                             });
                           }
                           break;
+                        case "قهوة":
+                          cart.cofeCount--;
+                          if (cart.cofeCount.value == 0) {
+                            setState(() {
+                              show = false;
+                            });
+                          }
+                          break;
+
                         case "ماء":
                           cart.waterCount--;
                           if (cart.waterCount.value == 0) {
@@ -159,14 +169,7 @@ class _ItemWidgetState extends State<ItemWidget> {
                             });
                           }
                           break;
-                        case "عصير":
-                          cart.juiceCount--;
-                          if (cart.juiceCount.value == 0) {
-                            setState(() {
-                              show = false;
-                            });
-                          }
-                          break;
+
                         default:
                       }
                     },

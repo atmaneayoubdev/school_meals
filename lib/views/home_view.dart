@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
-import 'package:school_meals/cart_view.dart';
+import 'package:school_meals/components/my_drawer.dart';
+import 'package:school_meals/views/cart_view.dart';
 import 'package:badges/badges.dart';
-import 'package:school_meals/orders_view.dart';
-import 'components/item_widget.dart';
-import 'items_controller.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../components/item_widget.dart';
+import '../controllers/items_controller.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -19,99 +18,26 @@ class _HomeViewState extends State<HomeView> {
   final CartController cart = Get.put(CartController());
 
   List<String> items = [
-    "قهوة",
+    "كوكيز",
     "كروسان",
+    "قهوة",
     "ماء",
-    "عصير",
   ];
   List<String> imagePath = [
-    "assets/cofe.jpg",
+    "assets/cookies.jpeg",
     "assets/croissant.jpg",
+    "assets/cofe.jpg",
     "assets/water.jpg",
-    "assets/juice.jpg",
   ];
   @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
     return Scaffold(
-        drawer: Container(
-            padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 20),
-            width: _size.width * 0.8,
-            color: Colors.white,
-            child: Column(
-              children: [
-                Text(
-                  "مدرستي",
-                  style: GoogleFonts.cairo(
-                      fontSize: 28,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black),
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                ListTile(
-                  leading: const Icon(
-                    Icons.home,
-                    color: Colors.brown,
-                  ),
-                  title: Text(
-                    "الرئيسية",
-                    style: GoogleFonts.cairo(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black,
-                    ),
-                  ),
-                  onTap: () {
-                    Get.back();
-                  },
-                ),
-                const Divider(
-                  color: Colors.black,
-                ),
-                ListTile(
-                  leading: const Icon(
-                    Icons.shopping_cart_rounded,
-                    color: Colors.brown,
-                  ),
-                  title: Text(
-                    "السلة",
-                    style: GoogleFonts.cairo(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black),
-                  ),
-                  onTap: () {
-                    Get.to(const CartView());
-                  },
-                ),
-                const Divider(
-                  color: Colors.black,
-                ),
-                ListTile(
-                  leading: const FaIcon(
-                    FontAwesomeIcons.shop,
-                    color: Colors.brown,
-                  ),
-                  title: Text(
-                    "Orders",
-                    style: GoogleFonts.cairo(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black,
-                    ),
-                  ),
-                  onTap: () {
-                    Get.to(const OrdersView());
-                  },
-                ),
-              ],
-            )),
+        drawer: const MyDrawer(type: 'home'),
         appBar: AppBar(
           foregroundColor: Colors.white,
           toolbarHeight: 100,
-          backgroundColor: Colors.black,
+          backgroundColor: Theme.of(context).primaryColor,
           actions: [
             Center(
               child: GestureDetector(
@@ -160,13 +86,22 @@ class _HomeViewState extends State<HomeView> {
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   child: Text(
-                    "مؤكولات",
+                    "مأكولات",
                     style: GoogleFonts.tajawal(
                         fontSize: 25,
                         fontWeight: FontWeight.w600,
                         color: Colors.black),
                   ),
                 ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Center(
+                    child: ItemWidget(
+                  size: _size,
+                  image: imagePath[0],
+                  name: items[0],
+                )),
                 const SizedBox(
                   height: 10,
                 ),
@@ -195,19 +130,9 @@ class _HomeViewState extends State<HomeView> {
                 Center(
                     child: ItemWidget(
                   size: _size,
-                  image: imagePath[0],
-                  name: items[0],
+                  image: imagePath[2],
+                  name: items[2],
                 )),
-                const SizedBox(
-                  height: 10,
-                ),
-                Center(
-                  child: ItemWidget(
-                    size: _size,
-                    image: imagePath[2],
-                    name: items[2],
-                  ),
-                ),
                 const SizedBox(
                   height: 10,
                 ),
